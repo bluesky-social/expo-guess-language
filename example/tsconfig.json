@@ -1,0 +1,10 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "@bsky.app/expo-guess-language": ["../src/index"],
+      "@bsky.app/expo-guess-language/*": ["../src/*"]
+    }
+  }
+}
