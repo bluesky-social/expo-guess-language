@@ -4,12 +4,12 @@ An Expo module for language detection using native platform APIs, with a JavaScr
 
 ## Platform support
 
-| Platform | Backend | Notes |
-| --- | --- | --- |
-| iOS | [NaturalLanguage](https://developer.apple.com/documentation/naturallanguage) | Always available (iOS 15.1+) |
-| Android | [ML Kit Language ID](https://developers.google.com/ml-kit/language/identification) | Requires Google Play Services |
-| Android (no Play Services) | [lande](https://github.com/nicklatkovich/lande) | Automatic JS fallback |
-| Web | [lande](https://github.com/nicklatkovich/lande) | JS-only |
+| Platform                   | Backend                                                                            | Notes                         |
+| -------------------------- | ---------------------------------------------------------------------------------- | ----------------------------- |
+| iOS                        | [NaturalLanguage](https://developer.apple.com/documentation/naturallanguage)       | Always available (iOS 15.1+)  |
+| Android                    | [ML Kit Language ID](https://developers.google.com/ml-kit/language/identification) | Requires Google Play Services |
+| Android (no Play Services) | [lande](https://github.com/nicklatkovich/lande)                                    | Automatic JS fallback         |
+| Web                        | [lande](https://github.com/nicklatkovich/lande)                                    | JS-only                       |
 
 ## Installation
 
@@ -39,7 +39,7 @@ const results = guessLanguageSync("Hello, world!");
 // [{ language: "en", confidence: 0.98 }, ...]
 ```
 
-On iOS, `guessLanguageSync` uses the native NaturalLanguage framework. On Android and web, it uses the [lande](https://github.com/nicklatkovich/lande) JS library.
+On iOS, `guessLanguageSync` uses the native NaturalLanguage framework. On Android and web, it uses the [lande](https://github.com/fabiospampinato/lande) JS library.
 
 ### Options
 
