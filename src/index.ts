@@ -4,11 +4,21 @@ import type { GuessLanguageOptions, LanguageResult } from "./ExpoGuessLanguage.t
 
 export type { GuessLanguageOptions, LanguageResult } from "./ExpoGuessLanguage.types";
 
-export function guessLanguage(
+export function guessLanguageAsync(
   text: string,
   options?: GuessLanguageOptions
 ): Promise<LanguageResult[]> {
-  return ExpoGuessLanguageModule.guessLanguage(
+  return ExpoGuessLanguageModule.guessLanguageAsync(
+    text,
+    options?.maxResults ?? 10
+  );
+}
+
+export function guessLanguageSync(
+  text: string,
+  options?: GuessLanguageOptions
+): LanguageResult[] {
+  return ExpoGuessLanguageModule.guessLanguageSync(
     text,
     options?.maxResults ?? 10
   );

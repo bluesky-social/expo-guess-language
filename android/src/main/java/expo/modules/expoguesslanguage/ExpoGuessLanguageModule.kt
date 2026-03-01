@@ -30,7 +30,7 @@ class ExpoGuessLanguageModule : Module() {
       return@Property isPlayServicesAvailable
     }
 
-    AsyncFunction("guessLanguage") { text: String, maxResults: Int ->
+    AsyncFunction("guessLanguageAsync") { text: String, maxResults: Int ->
       if (text.isBlank()) return@AsyncFunction emptyList<Bundle>()
 
       val task = languageIdentifier.identifyPossibleLanguages(text)

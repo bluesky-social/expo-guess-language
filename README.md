@@ -21,17 +21,30 @@ For bare React Native projects, run `npx pod-install` after installing.
 
 ## Usage
 
-```ts
-import { guessLanguage } from "@bsky.app/expo-guess-language";
+### Async
 
-const results = await guessLanguage("Hello, world!");
+```ts
+import { guessLanguageAsync } from "@bsky.app/expo-guess-language";
+
+const results = await guessLanguageAsync("Hello, world!");
 // [{ language: "en", confidence: 0.98 }, ...]
 ```
+
+### Sync
+
+```ts
+import { guessLanguageSync } from "@bsky.app/expo-guess-language";
+
+const results = guessLanguageSync("Hello, world!");
+// [{ language: "en", confidence: 0.98 }, ...]
+```
+
+On iOS, `guessLanguageSync` uses the native NaturalLanguage framework. On Android and web, it uses the [lande](https://github.com/nicklatkovich/lande) JS library.
 
 ### Options
 
 ```ts
-const results = await guessLanguage("Bonjour le monde!", {
+const results = await guessLanguageAsync("Bonjour le monde!", {
   maxResults: 3, // default: 10
 });
 ```
