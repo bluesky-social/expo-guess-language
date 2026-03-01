@@ -18,8 +18,8 @@
   "keywords": [
     "react-native",
     "expo",
-    "@bsky.app/expo-guess-language",
-    "ExpoGuessLanguage"
+    "language-detection",
+    "nlp"
   ],
   "repository": "https://github.com/bluesky-social/expo-guess-language",
   "bugs": {
@@ -28,12 +28,15 @@
   "author": "Samuel Newman <samuel@blueskyweb.xyz> (https://github.com/mozzius)",
   "license": "MIT",
   "homepage": "https://github.com/bluesky-social/expo-guess-language#readme",
-  "dependencies": {},
   "devDependencies": {
+    "@expo/npm-proofread": "^1.0.1",
     "@types/react": "~19.1.1",
+    "expo": "^54.0.33",
     "expo-module-scripts": "^55.0.2",
-    "expo": "^55.0.3",
-    "react-native": "0.82.1"
+    "react-native": "0.81.5"
+  },
+  "dependencies": {
+    "lande": "^1.0.10"
   },
   "peerDependencies": {
     "expo": "*",

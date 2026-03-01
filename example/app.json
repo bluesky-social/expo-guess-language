@@ -13,7 +13,8 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "expo.modules.expoguesslanguage.example"
+      "bundleIdentifier": "expo.modules.expoguesslanguage.example",
+      "appleTeamId": "B3LX46C5HS"
     },
     "android": {
       "adaptiveIcon": {

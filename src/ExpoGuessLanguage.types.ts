@@ -1,19 +1,8 @@
-import type { StyleProp, ViewStyle } from 'react-native';
-
-export type OnLoadEventPayload = {
-  url: string;
+export type LanguageResult = {
+  language: string; // BCP-47 code ("en", "fr", "ja")
+  confidence: number; // 0 to 1
 };
 
-export type ExpoGuessLanguageModuleEvents = {
-  onChange: (params: ChangeEventPayload) => void;
-};
-
-export type ChangeEventPayload = {
-  value: string;
-};
-
-export type ExpoGuessLanguageViewProps = {
-  url: string;
-  onLoad: (event: { nativeEvent: OnLoadEventPayload }) => void;
-  style?: StyleProp<ViewStyle>;
+export type GuessLanguageOptions = {
+  maxResults?: number; // default 10
 };

@@ -16,3 +16,8 @@ android {
     abortOnError false
   }
 }
+
+dependencies {
+  implementation 'com.google.mlkit:language-id:17.0.6'
+  implementation 'com.google.android.gms:play-services-base:18.5.0'
+}

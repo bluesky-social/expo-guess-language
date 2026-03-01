@@ -1,5 +1,15 @@
-// Reexport the native module. On web, it will be resolved to ExpoGuessLanguageModule.web.ts
-// and on native platforms to ExpoGuessLanguageModule.ts
-export { default } from './ExpoGuessLanguageModule';
-export { default as ExpoGuessLanguageView } from './ExpoGuessLanguageView';
-export * from  './ExpoGuessLanguage.types';
+import ExpoGuessLanguageModule from "./ExpoGuessLanguageModule";
+
+import type { GuessLanguageOptions, LanguageResult } from "./ExpoGuessLanguage.types";
+
+export type { GuessLanguageOptions, LanguageResult } from "./ExpoGuessLanguage.types";
+
+export function guessLanguage(
+  text: string,
+  options?: GuessLanguageOptions
+): Promise<LanguageResult[]> {
+  return ExpoGuessLanguageModule.guessLanguage(
+    text,
+    options?.maxResults ?? 10
+  );
+}

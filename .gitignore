@@ -55,3 +55,6 @@ yarn-error.log
 
 # Expo
 .expo/*
+
+# Built binaries
+scripts/generate-dataset/generate-dataset

@@ -1,50 +1,60 @@
 package expo.modules.expoguesslanguage
 
+import android.os.Bundle
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.GoogleApiAvailability
+import com.google.android.gms.tasks.Tasks
+import com.google.mlkit.nl.languageid.LanguageIdentification
+import com.google.mlkit.nl.languageid.LanguageIdentificationOptions
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
-import java.net.URL
 
 class ExpoGuessLanguageModule : Module() {
-  // Each module class must implement the definition function. The definition consists of components
-  // that describes the module's functionality and behavior.
-  // See https://docs.expo.dev/modules/module-api for more details about available components.
+  private val isPlayServicesAvailable: Boolean by lazy {
+    val context = appContext.reactContext ?: return@lazy false
+    GoogleApiAvailability.getInstance()
+      .isGooglePlayServicesAvailable(context) == ConnectionResult.SUCCESS
+  }
+
+  private val languageIdentifier by lazy {
+    val options = LanguageIdentificationOptions.Builder()
+      .setConfidenceThreshold(0.01f)
+      .build()
+    LanguageIdentification.getClient(options)
+  }
+
   override fun definition() = ModuleDefinition {
-    // Sets the name of the module that JavaScript code will use to refer to the module. Takes a string as an argument.
-    // Can be inferred from module's class name, but it's recommended to set it explicitly for clarity.
-    // The module will be accessible from `requireNativeModule('ExpoGuessLanguage')` in JavaScript.
     Name("ExpoGuessLanguage")
 
-    // Defines constant property on the module.
-    Constant("PI") {
-      Math.PI
+    Property("isNativeAvailable") {
+      return@Property isPlayServicesAvailable
     }
 
-    // Defines event names that the module can send to JavaScript.
-    Events("onChange")
+    AsyncFunction("guessLanguage") { text: String, maxResults: Int ->
+      if (text.isBlank()) return@AsyncFunction emptyList<Bundle>()
 
-    // Defines a JavaScript synchronous function that runs the native code on the JavaScript thread.
-    Function("hello") {
-      "Hello world! 👋"
-    }
+      val task = languageIdentifier.identifyPossibleLanguages(text)
+      val results = Tasks.await(task)
 
-    // Defines a JavaScript function that always returns a Promise and whose native code
-    // is by default dispatched on the different thread than the JavaScript runtime runs on.
-    AsyncFunction("setValueAsync") { value: String ->
-      // Send an event to JavaScript.
-      sendEvent("onChange", mapOf(
-        "value" to value
-      ))
-    }
-
-    // Enables the module to be used as a native view. Definition components that are accepted as part of
-    // the view definition: Prop, Events.
-    View(ExpoGuessLanguageView::class) {
-      // Defines a setter for the `url` prop.
-      Prop("url") { view: ExpoGuessLanguageView, url: URL ->
-        view.webView.loadUrl(url.toString())
-      }
-      // Defines an event that the view can send to JavaScript.
-      Events("onLoad")
+      results
+        .filter { it.languageTag != "und" }
+        .sortedByDescending { it.confidence }
+        .map { result ->
+          // Normalize to primary language subtag only (e.g. "ar-Latn" → "ar")
+          val lang = result.languageTag.substringBefore('-')
+          lang to result.confidence.toDouble()
+        }
+        // Merge duplicates after normalization (keep highest confidence)
+        .groupBy({ it.first }, { it.second })
+        .map { (lang, confidences) -> lang to confidences.max() }
+        .sortedByDescending { it.second }
+        .take(maxResults)
+        .map { (lang, confidence) ->
+          Bundle().apply {
+            putString("language", lang)
+            putDouble("confidence", confidence)
+          }
+        }
     }
   }
 }

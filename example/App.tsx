@@ -1,73 +1,96 @@
-import { useEvent } from 'expo';
-import ExpoGuessLanguage, { ExpoGuessLanguageView } from '@bsky.app/expo-guess-language';
-import { Button, SafeAreaView, ScrollView, Text, View } from 'react-native';
+import { useState } from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import DemoScreen from "./screens/DemoScreen";
+import BenchmarkScreen from "./screens/BenchmarkScreen";
+
+type Tab = "demo" | "benchmark";
 
 export default function App() {
-  const onChangePayload = useEvent(ExpoGuessLanguage, 'onChange');
+  const [tab, setTab] = useState<Tab>("demo");
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.container}>
-        <Text style={styles.header}>Module API Example</Text>
-        <Group name="Constants">
-          <Text>{ExpoGuessLanguage.PI}</Text>
-        </Group>
-        <Group name="Functions">
-          <Text>{ExpoGuessLanguage.hello()}</Text>
-        </Group>
-        <Group name="Async functions">
-          <Button
-            title="Set value"
-            onPress={async () => {
-              await ExpoGuessLanguage.setValueAsync('Hello from JS!');
-            }}
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.container}>
+        <Text style={styles.header}>expo-guess-language</Text>
+        <View style={styles.tabs}>
+          <TabButton
+            label="Demo"
+            active={tab === "demo"}
+            onPress={() => setTab("demo")}
           />
-        </Group>
-        <Group name="Events">
-          <Text>{onChangePayload?.value}</Text>
-        </Group>
-        <Group name="Views">
-          <ExpoGuessLanguageView
-            url="https://www.example.com"
-            onLoad={({ nativeEvent: { url } }) => console.log(`Loaded: ${url}`)}
-            style={styles.view}
+          <TabButton
+            label="Benchmark"
+            active={tab === "benchmark"}
+            onPress={() => setTab("benchmark")}
           />
-        </Group>
-      </ScrollView>
-    </SafeAreaView>
+        </View>
+        {tab === "demo" ? <DemoScreen /> : <BenchmarkScreen />}
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
-function Group(props: { name: string; children: React.ReactNode }) {
+function TabButton({
+  label,
+  active,
+  onPress,
+}: {
+  label: string;
+  active: boolean;
+  onPress: () => void;
+}) {
   return (
-    <View style={styles.group}>
-      <Text style={styles.groupHeader}>{props.name}</Text>
-      {props.children}
-    </View>
+    <Pressable
+      style={[styles.tab, active && styles.tabActive]}
+      onPress={onPress}
+    >
+      <Text style={[styles.tabLabel, active && styles.tabLabelActive]}>
+        {label}
+      </Text>
+    </Pressable>
   );
 }
 
-const styles = {
-  header: {
-    fontSize: 30,
-    margin: 20,
-  },
-  groupHeader: {
-    fontSize: 20,
-    marginBottom: 20,
-  },
-  group: {
-    margin: 20,
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 20,
-  },
+const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#eee',
+    backgroundColor: "#f2f2f7",
   },
-  view: {
+  header: {
+    fontSize: 22,
+    fontWeight: "bold",
+    margin: 16,
+    marginBottom: 8,
+  },
+  tabs: {
+    flexDirection: "row",
+    marginHorizontal: 16,
+    marginBottom: 12,
+    backgroundColor: "#e0e0e5",
+    borderRadius: 8,
+    padding: 2,
+  },
+  tab: {
     flex: 1,
-    height: 200,
+    paddingVertical: 8,
+    alignItems: "center",
+    borderRadius: 7,
   },
-};
+  tabActive: {
+    backgroundColor: "#fff",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  tabLabel: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#666",
+  },
+  tabLabelActive: {
+    color: "#000",
+  },
+});
