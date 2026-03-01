@@ -30,6 +30,9 @@ class ExpoGuessLanguageModule : Module() {
       return@Property isPlayServicesAvailable
     }
 
+    // No-op: sync detection on Android is handled by lande in JS
+    Function("guessLanguageSync") { _: String, _: Int -> emptyList<Bundle>() }
+
     AsyncFunction("guessLanguageAsync") { text: String, maxResults: Int ->
       if (text.isBlank()) return@AsyncFunction emptyList<Bundle>()
 
