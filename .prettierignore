@@ -1,0 +1,8 @@
+pnpm-lock.yaml
+
+ios/
+android/
+example/assets/dataset.json
+
+.expo/
+.claude/

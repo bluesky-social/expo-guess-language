@@ -15,15 +15,56 @@ import lande from "lande";
 
 // ISO 639-3 → BCP-47 (same mapping as the module uses internally)
 const ISO3_TO_BCP47: Record<string, string> = {
-  afr: "af", ara: "ar", aze: "az", bel: "be", ben: "bn", bul: "bg",
-  cat: "ca", ces: "cs", ckb: "ckb", cmn: "zh", dan: "da", deu: "de",
-  ell: "el", eng: "en", est: "et", eus: "eu", fin: "fi", fra: "fr",
-  hau: "ha", heb: "he", hin: "hi", hrv: "hr", hun: "hu", hye: "hy",
-  ind: "id", isl: "is", ita: "it", jpn: "ja", kat: "ka", kaz: "kk",
-  kor: "ko", lit: "lt", mar: "mr", mkd: "mk", nld: "nl", nob: "nb",
-  pes: "fa", pol: "pl", por: "pt", ron: "ro", run: "rn", rus: "ru",
-  slk: "sk", spa: "es", srp: "sr", swe: "sv", tgl: "tl", tur: "tr",
-  ukr: "uk", vie: "vi",
+  afr: "af",
+  ara: "ar",
+  aze: "az",
+  bel: "be",
+  ben: "bn",
+  bul: "bg",
+  cat: "ca",
+  ces: "cs",
+  ckb: "ckb",
+  cmn: "zh",
+  dan: "da",
+  deu: "de",
+  ell: "el",
+  eng: "en",
+  est: "et",
+  eus: "eu",
+  fin: "fi",
+  fra: "fr",
+  hau: "ha",
+  heb: "he",
+  hin: "hi",
+  hrv: "hr",
+  hun: "hu",
+  hye: "hy",
+  ind: "id",
+  isl: "is",
+  ita: "it",
+  jpn: "ja",
+  kat: "ka",
+  kaz: "kk",
+  kor: "ko",
+  lit: "lt",
+  mar: "mr",
+  mkd: "mk",
+  nld: "nl",
+  nob: "nb",
+  pes: "fa",
+  pol: "pl",
+  por: "pt",
+  ron: "ro",
+  run: "rn",
+  rus: "ru",
+  slk: "sk",
+  spa: "es",
+  srp: "sr",
+  swe: "sv",
+  tgl: "tl",
+  tur: "tr",
+  ukr: "uk",
+  vie: "vi",
 };
 
 function detectWithLande(text: string, maxResults: number): LanguageResult[] {
@@ -97,10 +138,7 @@ export default function DemoScreen() {
         />
       </View>
       <View style={styles.columns}>
-        <ResultColumn
-          title={`Native (${Platform.OS})`}
-          data={nativeResults}
-        />
+        <ResultColumn title={`Native (${Platform.OS})`} data={nativeResults} />
         <View style={styles.divider} />
         <ResultColumn title="lande (JS)" data={landeResults} />
       </View>
@@ -118,9 +156,7 @@ function ResultColumn({
   return (
     <View style={styles.column}>
       <Text style={styles.columnTitle}>{title}</Text>
-      {data && (
-        <Text style={styles.timing}>{data.ms.toFixed(1)}ms</Text>
-      )}
+      {data && <Text style={styles.timing}>{data.ms.toFixed(1)}ms</Text>}
       <ScrollView style={styles.resultsList}>
         {data?.results.map((r) => (
           <View key={r.language} style={styles.row}>

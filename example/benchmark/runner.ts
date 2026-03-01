@@ -6,15 +6,56 @@ const YIELD_INTERVAL = 10;
 
 // ISO 639-3 → BCP-47 (same mapping as DemoScreen)
 const ISO3_TO_BCP47: Record<string, string> = {
-  afr: "af", ara: "ar", aze: "az", bel: "be", ben: "bn", bul: "bg",
-  cat: "ca", ces: "cs", ckb: "ckb", cmn: "zh", dan: "da", deu: "de",
-  ell: "el", eng: "en", est: "et", eus: "eu", fin: "fi", fra: "fr",
-  hau: "ha", heb: "he", hin: "hi", hrv: "hr", hun: "hu", hye: "hy",
-  ind: "id", isl: "is", ita: "it", jpn: "ja", kat: "ka", kaz: "kk",
-  kor: "ko", lit: "lt", mar: "mr", mkd: "mk", nld: "nl", nob: "nb",
-  pes: "fa", pol: "pl", por: "pt", ron: "ro", run: "rn", rus: "ru",
-  slk: "sk", spa: "es", srp: "sr", swe: "sv", tgl: "tl", tur: "tr",
-  ukr: "uk", vie: "vi",
+  afr: "af",
+  ara: "ar",
+  aze: "az",
+  bel: "be",
+  ben: "bn",
+  bul: "bg",
+  cat: "ca",
+  ces: "cs",
+  ckb: "ckb",
+  cmn: "zh",
+  dan: "da",
+  deu: "de",
+  ell: "el",
+  eng: "en",
+  est: "et",
+  eus: "eu",
+  fin: "fi",
+  fra: "fr",
+  hau: "ha",
+  heb: "he",
+  hin: "hi",
+  hrv: "hr",
+  hun: "hu",
+  hye: "hy",
+  ind: "id",
+  isl: "is",
+  ita: "it",
+  jpn: "ja",
+  kat: "ka",
+  kaz: "kk",
+  kor: "ko",
+  lit: "lt",
+  mar: "mr",
+  mkd: "mk",
+  nld: "nl",
+  nob: "nb",
+  pes: "fa",
+  pol: "pl",
+  por: "pt",
+  ron: "ro",
+  run: "rn",
+  rus: "ru",
+  slk: "sk",
+  spa: "es",
+  srp: "sr",
+  swe: "sv",
+  tgl: "tl",
+  tur: "tr",
+  ukr: "uk",
+  vie: "vi",
 };
 
 function detectWithLande(text: string): DetectionResult & {} {
@@ -34,7 +75,7 @@ function yieldToUI(): Promise<void> {
 
 export async function runBenchmark(
   samples: Sample[],
-  onProgress: (done: number, total: number) => void
+  onProgress: (done: number, total: number) => void,
 ): Promise<BenchmarkResult[]> {
   const results: BenchmarkResult[] = [];
 
@@ -42,7 +83,11 @@ export async function runBenchmark(
     const sample = samples[i];
 
     // Native detection
-    let native: DetectionResult = { predicted: null, confidence: 0, correct: false };
+    let native: DetectionResult = {
+      predicted: null,
+      confidence: 0,
+      correct: false,
+    };
     try {
       const res = await guessLanguage(sample.text, { maxResults: 1 });
       if (res.length > 0) {

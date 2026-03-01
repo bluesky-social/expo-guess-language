@@ -7,7 +7,11 @@ import {
   Text,
   View,
 } from "react-native";
-import type { BenchmarkResult, BenchmarkStats, Dataset } from "../benchmark/types";
+import type {
+  BenchmarkResult,
+  BenchmarkStats,
+  Dataset,
+} from "../benchmark/types";
 import { runBenchmark } from "../benchmark/runner";
 import { computeStats } from "../benchmark/stats";
 import dataset from "../assets/dataset.json";
@@ -129,7 +133,8 @@ export default function BenchmarkScreen() {
               </View>
             </View>
             <Text style={styles.cardMeta}>
-              {(elapsedMs / 1000).toFixed(1)}s total, {(elapsedMs / stats.native.total).toFixed(1)}ms/sample
+              {(elapsedMs / 1000).toFixed(1)}s total,{" "}
+              {(elapsedMs / stats.native.total).toFixed(1)}ms/sample
             </Text>
           </View>
 
@@ -152,10 +157,22 @@ export default function BenchmarkScreen() {
           <View style={styles.card}>
             <Text style={styles.cardTitle}>Per Language</Text>
             <View style={styles.tableHeader}>
-              <Text style={[styles.tableCell, styles.tableCellHeader, { flex: 0.6 }]}>
+              <Text
+                style={[
+                  styles.tableCell,
+                  styles.tableCellHeader,
+                  { flex: 0.6 },
+                ]}
+              >
                 Lang
               </Text>
-              <Text style={[styles.tableCell, styles.tableCellHeader, { flex: 0.5 }]}>
+              <Text
+                style={[
+                  styles.tableCell,
+                  styles.tableCellHeader,
+                  { flex: 0.5 },
+                ]}
+              >
                 #
               </Text>
               <Text style={[styles.tableCell, styles.tableCellHeader]}>
@@ -167,7 +184,7 @@ export default function BenchmarkScreen() {
             </View>
             {stats.native.perLanguage.slice(0, 20).map((row) => {
               const landeRow = stats.lande.perLanguage.find(
-                (l) => l.lang === row.lang
+                (l) => l.lang === row.lang,
               );
               return (
                 <View key={row.lang} style={styles.tableRow}>
@@ -204,7 +221,9 @@ function ThresholdTable({ stats }: { stats: BenchmarkStats }) {
   return (
     <>
       <View style={styles.tableHeader}>
-        <Text style={[styles.tableCell, styles.tableCellHeader]}>Threshold</Text>
+        <Text style={[styles.tableCell, styles.tableCellHeader]}>
+          Threshold
+        </Text>
         <Text style={[styles.tableCell, styles.tableCellHeader]}>Above</Text>
         <Text style={[styles.tableCell, styles.tableCellHeader]}>Accuracy</Text>
         <Text style={[styles.tableCell, styles.tableCellHeader]}>Dropped</Text>

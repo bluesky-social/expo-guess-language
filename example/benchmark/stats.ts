@@ -10,7 +10,7 @@ const THRESHOLDS = [0.99, 0.9, 0.8, 0.7, 0.5];
 
 function computeStatsForDetector(
   results: BenchmarkResult[],
-  pick: (r: BenchmarkResult) => DetectionResult
+  pick: (r: BenchmarkResult) => DetectionResult,
 ): BenchmarkStats {
   const total = results.length;
   const correct = results.filter((r) => pick(r).correct).length;

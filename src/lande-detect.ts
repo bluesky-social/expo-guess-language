@@ -58,7 +58,7 @@ const ISO639_3_TO_BCP47: Record<string, string> = {
 
 export function detectWithLande(
   text: string,
-  maxResults: number
+  maxResults: number,
 ): LanguageResult[] {
   if (!text.trim()) return [];
 
