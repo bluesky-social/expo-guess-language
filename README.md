@@ -8,8 +8,8 @@ An Expo module for language detection using native platform APIs, with a JavaScr
 | -------------------------- | ---------------------------------------------------------------------------------- | ----------------------------- |
 | iOS                        | [NaturalLanguage](https://developer.apple.com/documentation/naturallanguage)       | Always available (iOS 15.1+)  |
 | Android                    | [ML Kit Language ID](https://developers.google.com/ml-kit/language/identification) | Requires Google Play Services |
-| Android (no Play Services) | [lande](https://github.com/nicklatkovich/lande)                                    | Automatic JS fallback         |
-| Web                        | [lande](https://github.com/nicklatkovich/lande)                                    | JS-only                       |
+| Android (no Play Services) | [lande](https://github.com/fabiospampinato/lande)                                  | Automatic JS fallback         |
+| Web                        | [lande](https://github.com/fabiospampinato/lande)                                  | JS-only                       |
 
 ## Installation
 

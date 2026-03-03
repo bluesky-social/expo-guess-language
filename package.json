@@ -1,6 +1,6 @@
 {
   "name": "@bsky.app/expo-guess-language",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Guess the language of a text snippet using native APIs",
   "main": "build/index.js",
   "types": "build/index.d.ts",
