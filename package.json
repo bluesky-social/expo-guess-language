@@ -1,6 +1,6 @@
 {
   "name": "@bsky.app/expo-guess-language",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Guess the language of a text snippet using native APIs",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -35,7 +35,8 @@
     "expo": "^54.0.33",
     "expo-module-scripts": "^5.0.8",
     "prettier": "^3.8.1",
-    "react-native": "0.81.5"
+    "react-native": "0.81.5",
+    "typescript": "^5.9.3"
   },
   "dependencies": {
     "lande": "^1.0.10"
